@@ -5,7 +5,7 @@ export class CreateSettings1618920988622 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "settings",
+                name: "clientes",
                 columns: [
                     {
                        name: "id",
@@ -17,19 +17,16 @@ export class CreateSettings1618920988622 implements MigrationInterface {
                         type: "varchar",
                     },
                     {
-                        name: "chat",
-                        type: "boolean",
-                        default: true,
+                        name: "cpf",
+                        type: "varchar",
                     },
                     {
-                        name: "updated_at",
-                        type: "timestamp",
-                        default: "now()",
+                        name: "cidade",
+                        type: "varchar",
                     },
                     {
-                        name: "created_at",
-                        type: "timestamp",
-                        default: "now()",
+                        name: "endereco",
+                        type: "varchar",
                     },
                 ],
             })
@@ -37,7 +34,7 @@ export class CreateSettings1618920988622 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("settings");
+        await queryRunner.dropTable("clientes");
     }
 
 }

@@ -1,16 +1,14 @@
 import { 
     Entity, 
-    Column, 
-    CreateDateColumn, 
-    UpdateDateColumn, 
+    Column,  
     PrimaryColumn,
 } from "typeorm";
 
 import {v4 as uuid} from "uuid"
 
 
-@Entity("settings")
-class Setting {
+@Entity("clientes")
+class Cliente {
 
     @PrimaryColumn()
     id: string;
@@ -19,13 +17,13 @@ class Setting {
     username: string;
 
     @Column()
-    chat: boolean;
+    cpf: string;
 
-    @UpdateDateColumn()
-    updated_at: Date;
+    @Column()
+    cidade: string;
 
-    @CreateDateColumn()
-    created_at: Date;
+    @Column()
+    endereco: string;
 
     constructor(){
         if(!this.id){
@@ -34,4 +32,4 @@ class Setting {
     }
 }
 
-export { Setting } 
+export { Cliente } 

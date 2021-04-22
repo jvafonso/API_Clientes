@@ -1,5 +1,5 @@
 import express, {Router} from "express";
-import { SettingsController } from "./controllers/SettingsController";
+import { ClientesController } from "./controllers/ClientesController";
 
 
 const routes = Router();
@@ -17,8 +17,13 @@ const routes = Router();
  * }
  */
 
-const settingsController = new SettingsController();
+const clientesController = new ClientesController();
 
-routes.post("/settings", settingsController.create)
+routes.post("/clientes", clientesController.create);
+
+routes.get("/clientes/:id", clientesController.showByUser);
+
+routes.get("/clientes", clientesController.showAllUsers);
+
 
 export { routes };
