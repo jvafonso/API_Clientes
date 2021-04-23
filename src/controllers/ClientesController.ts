@@ -24,11 +24,25 @@ class ClientesController {
     async showByUser(request: Request, response: Response){
         const {id} = request.params;
 
-        const clientesService = new ClientesService();
-        
-        const list = await clientesService.listbyUser(id);
 
-        return response.json(list);
+        try{
+            const clientesService = new ClientesService();
+
+        
+            const list = await clientesService.listbyUser(id);
+            console.log("list => ",list.length);
+
+            if(list.length > 0){
+                return response.json(list);
+            }else{
+                return response.json({"Error" : "001", "Message" : "Não foi encontrado nenhum cliente com o id fornecido."});
+            }
+        }catch(e){
+            return response.json({"Error" : "002", "Message" : e.message});
+        }
+       
+
+
     }
 
     async showAllUsers(request: Request, response: Response){
