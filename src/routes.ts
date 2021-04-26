@@ -25,5 +25,13 @@ routes.get("/clientes/:id", clientesController.showByUser);
 
 routes.get("/clientes", clientesController.showAllUsers);
 
+routes.put("/clientes/:id", clientesController.update);
+
+routes.patch("/clientes/:id", clientesController.updateP);
+
+routes.delete("/clientes/:id", clientesController.deleteByUser);
+
+routes.delete("/clientes", clientesController.deleteAllUsers);
+
 
 export { routes };

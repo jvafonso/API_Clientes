@@ -7,7 +7,7 @@ import {
 import {v4 as uuid} from "uuid"
 
 
-@Entity("clientes1")
+@Entity("clientes")
 class Cliente {
 
     @PrimaryColumn()

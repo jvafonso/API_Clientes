@@ -54,6 +54,62 @@ class ClientesService {
         return list;
     }
 
+    async exclude(id: string){
+        const userDontExists = await this.clientesRepository.findOne({
+            id,
+        });
+
+        if(userDontExists == null){
+            throw new Error("Usuario não existe")
+        }
+
+        const excluir = await this.clientesRepository.delete({
+            id,
+        });
+
+        return excluir;
+    }
+
+    async excludeAll(){
+        const excluir = await this.clientesRepository.delete({});
+
+        return excluir;
+    }
+
+    async update(id: string ,username: string, cpf: string, cidade: string, endereco: string){
+        const userDontExists = await this.clientesRepository.findOne({
+            id,
+        });
+
+        if(userDontExists == null){
+            throw new Error("Usuario não existe")
+        }
+
+        await this.clientesRepository.createQueryBuilder().
+        update(Cliente)
+        .set({ username, cpf, cidade, endereco})
+        .where("id = :id", {
+            id,
+        }).execute();
+    }
+
+    async updateP(id: string , cidade: string){
+        const userDontExists = await this.clientesRepository.findOne({
+            id,
+        });
+
+        if(userDontExists == null){
+            throw new Error("Usuario não existe")
+        }
+
+        await this.clientesRepository.createQueryBuilder().
+        update(Cliente)
+        .set({  cidade })
+        .where("id = :id", {
+            id,
+        }).execute();
+    }
+
 }
 
 export {ClientesService}
