@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import e, { Request, Response } from "express";
 import { ClientesService } from "../services/ClientesService";
 
 class ClientesController {
@@ -84,13 +84,22 @@ class ClientesController {
     async deleteAllUsers(request: Request, response: Response){
         const { } = request.params;
 
-        const clientesService = new ClientesService();
+        try{
+            const clientesService = new ClientesService();
 
-        const list = await clientesService.excludeAll();
+            const list = await clientesService.excludeAll();
 
-    
-        return response.json(list);
-        
+            if (list.raw.length > 0){
+                return response.json(list);
+
+            }else {
+                return response.json({"Error" : "005", "Message" : "Nenhum registro apagado. Tabela Vazia."});
+            }
+
+        } catch(err){
+            return response.json({"Error" : "006", "Message" : err.message});
+        }
+            
         
     }
 
