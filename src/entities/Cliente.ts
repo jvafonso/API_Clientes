@@ -25,10 +25,21 @@ class Cliente {
     @Column()
     endereco: string;
 
+    @Column()
+    Selfi: string;
+
+   // @Column()
+   // DocumentoID: string;
+
+   // @Column()
+   // DocumentoED: string;
+    
+
     constructor(){
         if(!this.id){
             this.id = uuid();
         }
+
     }
 }
 

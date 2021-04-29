@@ -1,6 +1,7 @@
-import express, {Router} from "express";
+import express, {Router,  Request, Response} from "express";
 import { ClientesController } from "./controllers/ClientesController";
-
+import { multerConfig } from './config/multer';
+import  multer from "multer";
 
 const routes = Router();
 
@@ -20,6 +21,13 @@ const routes = Router();
 const clientesController = new ClientesController();
 
 routes.post("/clientes", clientesController.create);
+
+routes.post("/upload", multer(multerConfig).single("file"), (request: Request, response: Response) =>{
+    console.log(request.file)
+
+    return response.json({message: "Upload feito "})
+
+})
 
 routes.get("/clientes/:id", clientesController.showByUser);
 
