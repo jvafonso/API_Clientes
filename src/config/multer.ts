@@ -21,7 +21,7 @@ export const multerConfig = {
         },
     }),
     limits: {
-      fileSize: 4 * 1024 * 1024 //tamanho maximo de 4 mb de uploads
+      fileSize: 4 * 1024 * 1024,//tamanho maximo de 4 mb de uploads
     },
     fileFilter: (request, file, callback) => {
         const formats = [

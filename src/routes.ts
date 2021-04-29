@@ -22,6 +22,8 @@ const clientesController = new ClientesController();
 
 routes.post("/clientes", clientesController.create);
 
+//routes.post("/clientes", multer(multerConfig).fields([{name: "Selfi",maxCount:1}, {name: "DocumentoID",maxCount:1}, {name: "DocumentoED",maxCount:1}]), clientesController.create);
+
 routes.post("/upload", multer(multerConfig).single("file"), (request: Request, response: Response) =>{
     console.log(request.file)
 
