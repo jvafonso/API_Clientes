@@ -8,6 +8,9 @@ interface IClientesCreate {
     cpf: string;
     cidade: string;
     endereco: string;
+    Selfie: string;
+    DocumentoID: string;
+    DocumentoED: string;
 }
 
 class ClientesService {
@@ -17,7 +20,7 @@ class ClientesService {
         this.clientesRepository = getCustomRepository(ClientesRepository);
     }
 
-    async create({ username, cpf, cidade, endereco} : IClientesCreate) {
+    async create({ username, cpf, cidade, endereco, Selfie, DocumentoID, DocumentoED} : IClientesCreate) {
 
         //Select * from settings where username = "username" limit 1;
         const userAlreadyExists = await this.clientesRepository.findOne({
@@ -33,9 +36,15 @@ class ClientesService {
             cpf,
             cidade,
             endereco,
+            Selfie ,
+            DocumentoID,
+            DocumentoED
+             
         });
     
         await this.clientesRepository.save(clientes);
+
+
 
         return clientes;
     }
@@ -107,6 +116,16 @@ class ClientesService {
         .set({  cidade })
         .where("id = :id", {
             id,
+        }).execute();
+    }
+
+    async updateT3(cliente: any) {
+
+        await this.clientesRepository.createQueryBuilder().
+        update(Cliente)
+        .set({ username: cliente.username, cpf: cliente.cpf, cidade: cliente.cidade, endereco: cliente.endereco,Selfie: cliente.Selfie, DocumentoID: cliente.DocumentoID, DocumentoED: cliente.DocumentoED})
+        .where("id = :id", {
+            id: cliente.id,
         }).execute();
     }
 

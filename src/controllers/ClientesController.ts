@@ -1,15 +1,18 @@
 import e, { Request, Response } from "express";
 import { ClientesService } from "../services/ClientesService";
+import fs from "fs";
 
 class ClientesController {
     
     async create(request: Request, response: Response) {
-        const { username, cpf, cidade, endereco } = request.body;
+        
+        const { username, cpf, cidade, endereco, Selfie, DocumentoID, DocumentoED } = request.body;
+        //const { Selfie, DocumentoID, DocumentoED} = request.file.path;
 
         const clientesService = new ClientesService();
 
         try {
-            const clientes = await clientesService.create({  username, cpf, cidade, endereco });
+            const clientes = await clientesService.create({  username, cpf, cidade, endereco, Selfie, DocumentoID, DocumentoED});
        
     
             return response.json(clientes);
@@ -19,6 +22,7 @@ class ClientesController {
                 message: err.message,
             });
         }
+        
     }
 
     async showByUser(request: Request, response: Response){
@@ -140,6 +144,51 @@ class ClientesController {
        
     }
 
+    async upload(request: Request, response: Response){
+        
+        const {id} = request.params;
+        const { Selfie, DocumentoID, DocumentoED } = request.body;
+        const clientesService = new ClientesService();
+        const listaCliente = await clientesService.listbyUser(id);
+        const cliente = listaCliente[0];
+
+
+        
+        const pathSelfie = request.files['SelfieU'][0].path;
+        const bytesSelfie = await fs.readFileSync(pathSelfie);
+
+
+        const pathDocumentoID = request.files['DocumentoIDU'][0].path;
+        const bytesDocumentoID = await fs.readFileSync(pathDocumentoID);
+
+        const pathDocumentoED = request.files['DocumentoEDU'][0].path;
+        const bytesDocumentoED = await fs.readFileSync(pathDocumentoED);
+
+        const byteToBase64 =  async bytes => {
+            let objJsonStr = JSON.stringify(bytes);
+            return Buffer.from(objJsonStr).toString("base64");
+        };
+        
+        const base64Selfie = await byteToBase64(bytesSelfie);
+        const base64DocumentoID = await byteToBase64(bytesDocumentoID);
+        const base64DocumentoED = await byteToBase64(bytesDocumentoED);
+
+        cliente['Selfie'] = base64Selfie;
+        cliente['DocumentoID'] = base64DocumentoID;
+        cliente['DocumentoED'] = base64DocumentoED;
+        
+
+        
+        await clientesService.updateT3(cliente);
+        const clientealterado = await clientesService.listbyUser(id);
+        return response.json({clientealterado});
+        
+
+
+
+
+    }
+ 
 }
 
 export { ClientesController }

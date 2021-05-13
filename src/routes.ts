@@ -22,14 +22,12 @@ const clientesController = new ClientesController();
 
 routes.post("/clientes", clientesController.create);
 
-//routes.post("/clientes", multer(multerConfig).fields([{name: "Selfi",maxCount:1}, {name: "DocumentoID",maxCount:1}, {name: "DocumentoED",maxCount:1}]), clientesController.create);
 
-routes.post("/upload", multer(multerConfig).single("file"), (request: Request, response: Response) =>{
-    console.log(request.file)
+//routes.post("/clientes", multer(multerConfig).any(), clientesController.create);
 
-    return response.json({message: "Upload feito "})
+routes.post("/clientes/:id/upload", multer(multerConfig).fields([{name: "SelfieU",maxCount:1}, {name: "DocumentoIDU",maxCount:1}, {name: "DocumentoEDU",maxCount:1}]), clientesController.upload);
+//routes.post("/clientes/:id/upload", multer(multerConfig).array("listField", 3), clientesController.upload);
 
-})
 
 routes.get("/clientes/:id", clientesController.showByUser);
 

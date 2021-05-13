@@ -25,9 +25,9 @@ class Cliente {
     @Column()
     endereco: string;
 
-    /** 
+    
     @Column()
-    Selfi: string;
+    Selfie: string;
 
     @Column()
     DocumentoID: string;
@@ -35,7 +35,7 @@ class Cliente {
     @Column()
     DocumentoED: string;
     
-    */
+    
     constructor(){
         if(!this.id){
             this.id = uuid();

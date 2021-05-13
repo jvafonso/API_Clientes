@@ -28,18 +28,24 @@ export class CreateSettings1618920988622 implements MigrationInterface {
                         name: "endereco",
                         type: "varchar",
                     },
-                    //{
-                       // name: "Selfi",
-                       // type: "varchar",
-                    //},
-                    //{
-                        //name: "DocumentoID",
-                       // type: "varchar",
-                    //},
-                    //{
-                        //name: "DocumentoED",
-                        //type: "varchar",
-                    //}
+                    
+                    {
+                        name: "Selfie",
+                        type: "varchar",
+                        isNullable: true
+                    },
+                    {
+                        name: "DocumentoID",
+                        type: "varchar",
+                        isNullable: true
+                    },
+                    {
+                        name: "DocumentoED",
+                        type: "varchar",
+                        isNullable: true
+                    }
+                    
+                    
                 ],
             })
         );

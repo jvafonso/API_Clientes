@@ -24,16 +24,44 @@ export const multerConfig = {
       fileSize: 4 * 1024 * 1024,//tamanho maximo de 4 mb de uploads
     },
     fileFilter: (request, file, callback) => {
-        const formats = [
-            "image/jpg",
-            "image/png",
-        ];
+ 
 
-        if (formats.includes(file.mimetype)) {
-            callback(null, true);
+        
+        if(file.fieldname === "SelfieU"){
+            if(
+                file.mimetype === "image/png" ||
+                file.mimetype === "image/jpg"
+            ) {
+               
+                callback(null, true);
+            } else {
+                callback(new Error("Format not accepted"));
+            }
+        } else if(file.fieldname === "DocumentoIDU"){
+            if(
+                file.mimetype === "image/png" ||
+                file.mimetype === "image/jpg"
+            ) {
+                
+                callback(null, true);
+            } else {
+                callback(new Error("Format not accepted"));
+            }
+        } else if(file.fieldname == "DocumentoEDU"){
+            if(
+                file.mimetype === "image/png" ||
+                file.mimetype === "image/jpg"
+            ) {
+                
+                callback(null, true);
+            } else {
+                callback(new Error("Format not accepted"));
+            }
         } else {
-            callback(new Error("Format not accepted"))
+            callback(new Error("Arquive not supported"));
         }
+        
+
 
     }
 } as Options
