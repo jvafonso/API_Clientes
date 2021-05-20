@@ -1,4 +1,4 @@
-import e, { Request, Response } from "express";
+import { Request, Response } from "express";
 import { ClientesService } from "../services/ClientesService";
 import fs from "fs";
 
@@ -152,26 +152,14 @@ class ClientesController {
         const listaCliente = await clientesService.listbyUser(id);
         const cliente = listaCliente[0];
 
-
-        
-        const pathSelfie = request.files['SelfieU'][0].path;
-        const bytesSelfie = await fs.readFileSync(pathSelfie);
-
-
-        const pathDocumentoID = request.files['DocumentoIDU'][0].path;
-        const bytesDocumentoID = await fs.readFileSync(pathDocumentoID);
-
-        const pathDocumentoED = request.files['DocumentoEDU'][0].path;
-        const bytesDocumentoED = await fs.readFileSync(pathDocumentoED);
-
         const byteToBase64 =  async bytes => {
             let objJsonStr = JSON.stringify(bytes);
             return Buffer.from(objJsonStr).toString("base64");
         };
         
-        const base64Selfie = await byteToBase64(bytesSelfie);
-        const base64DocumentoID = await byteToBase64(bytesDocumentoID);
-        const base64DocumentoED = await byteToBase64(bytesDocumentoED);
+        const base64Selfie = await byteToBase64(await fs.readFileSync(request.files['SelfieU'][0].path));
+        const base64DocumentoID = await byteToBase64(await fs.readFileSync(request.files['DocumentoIDU'][0].path));
+        const base64DocumentoED = await byteToBase64(await fs.readFileSync(request.files['DocumentoEDU'][0].path));
 
         cliente['Selfie'] = base64Selfie;
         cliente['DocumentoID'] = base64DocumentoID;

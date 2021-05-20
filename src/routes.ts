@@ -1,5 +1,6 @@
 import express, {Router,  Request, Response} from "express";
 import { ClientesController } from "./controllers/ClientesController";
+import { ProdutosController } from "./controllers/ProdutosController";
 import { multerConfig } from './config/multer';
 import  multer from "multer";
 
@@ -40,6 +41,12 @@ routes.patch("/clientes/:id", clientesController.updateP);
 routes.delete("/clientes/:id", clientesController.deleteByUser);
 
 routes.delete("/clientes", clientesController.deleteAllUsers);
+
+
+
+const produtosController = new ProdutosController();
+
+routes.post("/produtos", produtosController.create);
 
 
 export { routes };
