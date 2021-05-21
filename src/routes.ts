@@ -48,5 +48,12 @@ const produtosController = new ProdutosController();
 
 routes.post("/produtos", produtosController.create);
 
+routes.delete("/deleteProd/:cliente_id", produtosController.delete);
+routes.delete("/deleteOneProd/:cliente_id/:id", produtosController.deleteOne);
+
+routes.get("/produtos/:cliente_id", produtosController.showAllProducts);
+routes.get("/produtos/:cliente_id/:id", produtosController.showOneProduct);
+
+routes.patch("/produtos/:cliente_id/:id", produtosController.update)
 
 export { routes };
