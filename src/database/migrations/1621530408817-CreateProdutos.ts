@@ -29,6 +29,11 @@ export class CreateProdutos1621530408817 implements MigrationInterface {
                         name: "price",
                         type: "number",
                     },
+                    {
+                        name: "ProdutoIMG",
+                        type: "varchar",
+                        isNullable: true
+                    },
                     
                 ],
                 foreignKeys: [

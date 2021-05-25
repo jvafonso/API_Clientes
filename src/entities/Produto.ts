@@ -33,6 +33,9 @@ class Produto {
     @CreateDateColumn()
     valid_thru: Date;
 
+    @Column()
+    ProdutoIMG: string;
+
     constructor() {
         if(!this.id){
             this.id = uuid();

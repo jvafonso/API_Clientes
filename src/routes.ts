@@ -56,4 +56,7 @@ routes.get("/produtos/:cliente_id/:id", produtosController.showOneProduct);
 
 routes.patch("/produtos/:cliente_id/:id", produtosController.update)
 
+routes.post("/produtos/:cliente_id/:id/upload", multer(multerConfig).fields([{name: "ProdutoIMG",maxCount:1}]), produtosController.upload);
+
+
 export { routes };

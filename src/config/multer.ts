@@ -57,7 +57,17 @@ export const multerConfig = {
             } else {
                 callback(new Error("Format not accepted"));
             }
-        } else {
+        } else if(file.fieldname == "ProdutoIMG"){
+            if(
+                file.mimetype === "image/png" ||
+                file.mimetype === "image/jpg"
+            ) {
+                
+                callback(null, true);
+            } else {
+                callback(new Error("Format not accepted"));
+            }
+        }else {
             callback(new Error("Arquive not supported"));
         }
         

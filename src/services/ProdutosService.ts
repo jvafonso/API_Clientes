@@ -95,6 +95,18 @@ class ProdutosService {
         }).execute();
     }
 
+    async updateT1(produto: any) {
+
+        await this.produtosRepository.createQueryBuilder().
+        update(Produto)
+        .set({ cliente_id: produto.cliente_id, prodtname: produto.prodtname, price: produto.price, valid_thru: produto.valid_thru, ProdutoIMG: produto.ProdutoIMG})
+        .where( "cliente_id = :cliente_id", {
+            cliente_id: produto.cliente_id,
+        }).andWhere("id = :id", {
+            id: produto.id,
+        }).execute();
+    }
+
     
 }
 

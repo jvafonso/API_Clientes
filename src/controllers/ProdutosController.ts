@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { ProdutosService } from "../services/ProdutosService";
+import fs from "fs";
 
 class ProdutosController {
     async create(request: Request, response: Response) {
@@ -102,6 +103,29 @@ class ProdutosController {
             });
         }
     }
+
+    async upload(request: Request, response: Response){
+        const {cliente_id, id} = request.params;
+        const {ProdutoIMG} = request.body;
+        const produtosService = new ProdutosService();
+        const listaProduto = await produtosService.listOneProduct(cliente_id, id);
+        const produto = listaProduto[0];
+
+        const byteToBase64 = bytes => {
+            let objJsonStr = JSON.stringify(bytes);
+            return Buffer.from(objJsonStr).toString("base64");
+        };
+
+        const base64ProdutoIMG = await byteToBase64(await fs.readFileSync(request.files['ProdutoIMG'][0].path));
+
+        produto['ProdutoIMG'] = base64ProdutoIMG;
+
+        await produtosService.updateT1(produto);
+        const produtoAlterado = await produtosService.listOneProduct(cliente_id, id);
+        return response.json({produtoAlterado});
+    }
+
+    
 }
 
 export { ProdutosController };
